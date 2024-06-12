@@ -5,7 +5,7 @@
                 direction="rtl"
                 :with-header="false">
             <div style="padding: 20px;">
-                <el-page-header @back="taskVisible = false" content="任务队列"
+                <el-page-header @back="taskVisible = false" content="事件佇列"
                                 style="margin-bottom: 20px;"></el-page-header>
                 <div v-for="(num, id) in taskList" :key="id" @click="showTaskLog(id)">
                     <el-card>
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </el-drawer>
-        <el-dialog title="任务日志" :visible.sync="taskLogVisible">
+        <el-dialog title="事件紀錄" :visible.sync="taskLogVisible">
             <div class="output">
                 <div class="output-content" v-loading="loadingMessageList">
                     <table class="output-lines">

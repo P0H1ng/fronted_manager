@@ -31,7 +31,7 @@
       </el-menu-item>
       <!--            <el-menu-item style="float: right;">-->
       <!--                <el-badge :value="200" :max="99" class="badge">-->
-      <!--                    <el-button plain size="small" style="margin-top: -20px;" @click="taskVisible = true">任务队列-->
+      <!--                    <el-button plain size="small" style="margin-top: -20px;" @click="taskVisible = true">事件佇列-->
       <!--                    </el-button>-->
       <!--                </el-badge>-->
       <!--            </el-menu-item>-->

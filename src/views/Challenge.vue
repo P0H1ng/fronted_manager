@@ -125,7 +125,7 @@
             onNewChallenge() {
                 this.utils.POST('/manager/challenge', this.newChallengeForm).then(res => {
                     this.newChallengeDialogVisible = false
-                    // 清空表单
+                    // 清空表格
                     this.newChallengeForm = {
                         Title: '',
                         BaseScore: 1000,

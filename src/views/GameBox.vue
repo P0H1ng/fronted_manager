@@ -11,7 +11,7 @@
       </el-button>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="remote-gamebox">{{ $t('gamebox.publish_out') }}</el-dropdown-item>
-        <!--                <el-dropdown-item command="from-docker">从镜像部署靶机</el-dropdown-item>-->
+        <!--                <el-dropdown-item command="from-docker">從Docker佈署靶機</el-dropdown-item>-->
       </el-dropdown-menu>
     </el-dropdown>
     <el-button @click="testAllSSH" :loading="sshTesting">{{ $t('gamebox.test_ssh') }}</el-button>
@@ -231,11 +231,11 @@
     </el-dialog>
 
     <!-- New GameBox from docker -->
-    <el-dialog title="从镜像部署题目" :visible.sync="dockerImageVisible" width="70%">
+    <el-dialog title="從Docker佈署題目" :visible.sync="dockerImageVisible" width="70%">
       <el-form v-loading="loadingDockerfile">
         <el-input placeholder="your_name/web_challenge:latest" v-model="dockerImageText">
           <template slot="prepend">docker pull</template>
-          <el-button slot="append" icon="el-icon-search" @click="getImageData">获取镜像信息</el-button>
+          <el-button slot="append" icon="el-icon-search" @click="getImageData">獲取靶機資訊</el-button>
         </el-input>
       </el-form>
       <br>
@@ -255,44 +255,44 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="题目 IP">
-                <el-input placeholder="题目 IP" v-model="dockerForm.IP"></el-input>
+              <el-form-item label="Docker IP">
+                <el-input placeholder="Docker IP" v-model="dockerForm.IP"></el-input>
               </el-form-item>
-              <el-form-item label="容器端口">
-                <el-input placeholder="容器端口" v-model="dockerForm.ServicePort"></el-input>
+              <el-form-item label="Docker Port">
+                <el-input placeholder="Docker Port" v-model="dockerForm.ServicePort"></el-input>
               </el-form-item>
-              <el-form-item label="容器 SSH 端口">
-                <el-input placeholder="容器 SSH 端口" v-model="dockerForm.SSHPort"></el-input>
+              <el-form-item label="Docker SSH Port">
+                <el-input placeholder="Docker SSH Port" v-model="dockerForm.SSHPort"></el-input>
               </el-form-item>
               <br>
-              <div style="text-align: center; color:rgba(128,128,128,0.50);">SSH 密码将自动生成</div>
+              <div style="text-align: center; color:rgba(128,128,128,0.50);">SSH 密碼將自動產生</div>
             </el-form>
           </el-col>
           <el-col :span="12">
             <el-form :inline="true" label-width="120px">
-              <el-form-item label="root SSH 用户名">
-                <el-input placeholder="root SSH 用户名" v-model="dockerForm.RootSSHName"></el-input>
+              <el-form-item label="root SSH Username">
+                <el-input placeholder="root SSH Username" v-model="dockerForm.RootSSHName"></el-input>
               </el-form-item>
-              <el-form-item label="选手 SSH 用户名">
-                <el-input placeholder="选手 SSH 用户名" v-model="dockerForm.UserSSHName"></el-input>
+              <el-form-item label="選手 SSH Username">
+                <el-input placeholder="選手 SSH Username" v-model="dockerForm.UserSSHName"></el-input>
               </el-form-item>
             </el-form>
-            题目描述
+            題目描述
             <el-input
                 :rows="5"
                 type="textarea"
-                placeholder="请输入内容"
+                placeholder="請輸入內容"
                 v-model="dockerForm.Description">
             </el-input>
           </el-col>
         </el-row>
 
-        <el-divider content-position="left">端口映射</el-divider>
+        <el-divider content-position="left">Port映射</el-divider>
         <!-- Ports -->
         <el-form :inline="true" label-width="30px">
           <el-form-item v-for="(port, index) in dockerForm.Ports" v-bind:key="index"
                         style="margin-bottom: 0px;">
-            <el-input style="width: 180px;" placeholder="映射端口" v-model="port.Out" size="mini" :min="1"
+            <el-input style="width: 180px;" placeholder="映射Port" v-model="port.Out" size="mini" :min="1"
                       :max="65535">
               <template slot="append"> -> {{ port.In }}
                 <el-button icon="el-icon-error" @click="dockerForm.Ports.splice(index, 1)"></el-button>
@@ -312,7 +312,7 @@
                 @blur="inputPortConfirm"
                 minlength="1"
                 maxlength="5"
-                label="容器内端口"
+                label="Docker Port"
             >
             </el-input>
             <el-button v-else size="mini" @click="()=>{
@@ -320,7 +320,7 @@
                             this.$nextTick(_ => {
                               this.$refs.portInput.$refs.input.focus();
                             });
-                        }">+ 添加端口
+                        }">+ 新增 Port
             </el-button>
           </el-form-item>
         </el-form>
@@ -334,10 +334,10 @@
             style="width: 100%">
           <el-table-column
               prop="Name"
-              label="队伍名"
+              label="隊伍名稱"
               width="180">
           </el-table-column>
-          <el-table-column label="端口配置">
+          <el-table-column label="Port設置">
             <template slot-scope="scope">
               <el-tag
                   size="mini"
@@ -350,7 +350,7 @@
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="容器名">
+          <el-table-column label="Docker容器名稱">
             <template slot-scope="scope">
               {{ dockerInfo.Name }}_{{ scope.row.Name }}
             </template>
@@ -361,7 +361,7 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dockerImageVisible = false">取 消</el-button>
-        <el-button type="primary" @click="deployFromDocker">添加</el-button>
+        <el-button type="primary" @click="deployFromDocker">新增</el-button>
       </div>
     </el-dialog>
 
@@ -414,9 +414,9 @@ export default {
       SSHPort: '',
       RootSSHName: '',
       UserSSHName: '',
-      Description: `SSH 端口：{{ssh_port}}
-SSH 账号：{{ssh_name}}
-SSH 密码：{{ssh_password}}`,
+      Description: `SSH Port：{{ssh_port}}
+SSH Username：{{ssh_name}}
+SSH Password：{{ssh_password}}`,
       Ports: []
     },
 

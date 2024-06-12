@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-button type="primary" @click="selectFileDialogVisible = true">{{buttonText}}</el-button>
-        <el-dialog title="选择文件" :visible.sync="selectFileDialogVisible" :modal="false">
+        <el-dialog title="選擇檔案" :visible.sync="selectFileDialogVisible" :modal="false">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item v-for="(folder, key) in baseDir.split('/')" v-bind:key="key">
                     <el-button type="text"
@@ -26,7 +26,7 @@
             >
                 <el-table-column
                         prop="Name"
-                        label="文件名"
+                        label="檔案名稱"
                         width="180">
                     <template slot-scope="scope">
                         <i class="el-icon-folder" v-if="scope.row.IsDir"></i>
@@ -36,7 +36,7 @@
                 </el-table-column>
                 <el-table-column
                         prop="Size"
-                        label="文件大小"
+                        label="檔案大小"
                         width="180">
                 </el-table-column>
                 <el-table-column
@@ -50,7 +50,7 @@
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="selectFileDialogVisible = false">取 消</el-button>
-                <el-button type="primary">选择</el-button>
+                <el-button type="primary">選擇</el-button>
             </div>
         </el-dialog>
     </div>

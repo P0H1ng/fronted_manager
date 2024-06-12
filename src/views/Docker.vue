@@ -1,26 +1,26 @@
 <template>
     <div>
-        <el-button type="primary" @click="imageListVisible = true">镜像列表</el-button>
-        <el-button type="primary" @click="dockerImageVisible = true">拉取镜像</el-button>
-        <!--        <file-select button-text="选择目录" :folder-only="true"></file-select>-->
+        <el-button type="primary" @click="imageListVisible = true">Image列表</el-button>
+        <el-button type="primary" @click="dockerImageVisible = true">下載Image</el-button>
+        <!--        <file-select button-text="選擇目錄" :folder-only="true"></file-select>-->
 
         <!-- Pull Image -->
-        <el-dialog title="从镜像部署题目" :visible.sync="dockerImageVisible" width="50%">
+        <el-dialog title="從Image部署題目" :visible.sync="dockerImageVisible" width="50%">
             <el-form v-loading="loadingDockerfile">
                 <el-input placeholder="your_name/web_challenge:latest" v-model="dockerImageText">
                     <template slot="prepend">docker pull</template>
-                    <el-button slot="append" icon="el-icon-search" @click="getImageData">获取镜像信息</el-button>
+                    <el-button slot="append" icon="el-icon-search" @click="getImageData">取得Image資訊</el-button>
                 </el-input>
             </el-form>
             <div v-if="imageInfo !== null">
                 <br>
-                <b>镜像名</b> {{imageInfo.Image}} <br>
-                <b>架构</b> {{imageInfo.Architecture}} <br>
+                <b>Image名稱</b> {{imageInfo.Image}} <br>
+                <b>架構</b> {{imageInfo.Architecture}} <br>
                 <b>SHA</b> {{imageInfo.Digest}} <br>
-                <b>端口</b>
+                <b>Port</b>
                 <el-tag v-for="(port, index) in imageInfo.Ports" v-bind:key="index"> {{port}}</el-tag>
                 <br> <br>
-                <el-button type="primary" @click="pullImage" v-if="imageInfo !== null">拉取镜像</el-button>
+                <el-button type="primary" @click="pullImage" v-if="imageInfo !== null">下載Image</el-button>
             </div>
             <br>
             <div class="output" v-if="taskLogVisible">
@@ -38,7 +38,7 @@
         </el-dialog>
 
         <!-- Image List -->
-        <el-dialog title="镜像列表" :visible.sync="imageListVisible" width="800px">
+        <el-dialog title="Image列表" :visible.sync="imageListVisible" width="800px">
             <el-table
                     :data="images"
                     border
@@ -47,7 +47,7 @@
                     style="width: 100%">
                 <el-table-column
                         fixed
-                        label="镜像名"
+                        label="Image名稱"
                         width="150">
                     <template slot-scope="scope">
                         <b>{{scope.row.RepoTags[0]}}</b>
@@ -73,7 +73,7 @@
                         fixed="right"
                         label="操作">
                     <template slot-scope="scope">
-                        <el-button plain type="danger" size="mini" @click="deleteImage(scope.row.Id)">删除</el-button>
+                        <el-button plain type="danger" size="mini" @click="deleteImage(scope.row.Id)">刪除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -91,14 +91,14 @@
                 style="width: 100%">
             <el-table-column
                     fixed
-                    label="容器名"
+                    label="Image名稱"
                     width="150">
                 <template slot-scope="scope">
                     <b>{{scope.row.Names[0].substr(1)}}</b> <!-- Remove the / -->
                 </template>
             </el-table-column>
             <el-table-column
-                    label="状态"
+                    label="狀態"
                     width="100">
                 <template slot-scope="scope">
                     <div v-if="scope.row.State === 'running'">
@@ -110,21 +110,21 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="关联靶机"
+                    label="關聯靶機"
                     width="200">
                 <template>
                     <el-button type="text"></el-button>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="镜像名"
+                    label="Image名稱"
                     width="250">
                 <template slot-scope="scope">
                     {{scope.row.Image}}
                 </template>
             </el-table-column>
             <el-table-column
-                    label="端口信息"
+                    label="Port 資訊"
                     width="250">
                 <template slot-scope="scope">
                     <div v-if="scope.row.Ports.length === 0">
@@ -141,7 +141,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="说明"
+                    label="說明"
                     width="200">
                 <template slot-scope="scope">
                     {{scope.row.Status}}
@@ -156,7 +156,7 @@
                         <el-button plain type="warning" size="mini" @click="stopContainer(scope.row.Id)">停止</el-button>
                     </div>
                     <div v-else>
-                        <el-button plain type="success" size="mini" @click="startContainer(scope.row.Id)">开启</el-button>
+                        <el-button plain type="success" size="mini" @click="startContainer(scope.row.Id)">開啟</el-button>
                         <el-button plain type="danger" size="mini" @click="deleteContainer(scope.row.Id)">删除</el-button>
                     </div>
                 </template>
@@ -267,7 +267,7 @@
                         let type = data.Type
                         let message = data.Message
                         if (type === 'end') {
-                            this.$message.success("拉取完成！")
+                            this.$message.success("下載完成！")
                             this.getImageList() // Refresh the image list.
                             events.close()
                         } else {

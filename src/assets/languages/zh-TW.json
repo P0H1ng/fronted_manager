@@ -20,7 +20,7 @@
     "docker": "Docker管理",
     "flag": "Flag管理",
     "bulletin": "公告管理",
-    "asteroid": "大屏管理",
+    "asteroid": "動畫管理",
     "webhook": "WebHook",
     "manager": "帳號管理",
     "config": "系統配置",
@@ -209,7 +209,7 @@
     "title": "比賽名",
     "flag_prefix": "Flag 首碼",
     "flag_suffix": "Flag 尾碼",
-    "animate_asteroid": "更絢麗的 Asteroid 大屏",
+    "animate_asteroid": "更絢麗的 Asteroid 動畫",
     "show_others_gamebox": "隊伍靶機相互可見",
     "default_language": "🌐 預設語言 / Default Language"
   }
