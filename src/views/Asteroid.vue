@@ -1,19 +1,5 @@
 <template>
     <div>
-        <el-collapse :value="['1']">
-            <el-collapse-item title="Asteroid" name="1">
-                <div>{{$t('asteroid.intro')}}</div>
-                <div>
-                    <el-link type="primary" href="https://cardinal.ink/asteroid/" target="_blank">
-                        {{$t('asteroid.docs')}}
-                    </el-link>&nbsp;&nbsp;
-                    <el-link type="primary" href="https://github.com/wuhan005/Asteroid" target="_blank">
-                        {{$t('asteroid.github')}}
-                    </el-link>
-                </div>
-            </el-collapse-item>
-        </el-collapse>
-        <br>
         <el-button type="primary" @click="setRank">{{$t('asteroid.refresh_rank')}}</el-button>
         <el-button type="primary" @click="clearAll">{{$t('asteroid.clean_all_status')}}</el-button>
         <el-button @click="easterEgg">{{$t('asteroid.send_easter_egg')}}</el-button>
@@ -40,11 +26,11 @@
             <el-form-item :label="$t('asteroid.attacked')">
                 <el-select v-model="attackForm.To" :placeholder="$t('asteroid.select')">
                     <el-option
-                            v-for="team in teams"
-                            :key="team.ID"
-                            :label="team.Name"
-                            :value="team.ID">
-                    </el-option>
+                        v-for="challenge in challenges"
+                        :key="challenge.ID"
+                        :label="challenge.Title"
+                        :value="challenge.ID">
+                        </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item>
@@ -53,13 +39,13 @@
         </el-form>
         <span><b>{{$t('asteroid.set_status')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item :label="$t('asteroid.team')">
+            <el-form-item :label="$t('asteroid.challenge')">
                 <el-select v-model="statusForm.Id" :placeholder="$t('asteroid.select')">
                     <el-option
-                            v-for="team in teams"
-                            :key="team.ID"
-                            :label="team.Name"
-                            :value="team.ID">
+                        v-for="challenge in challenges"
+                        :key="challenge.ID"
+                        :label="challenge.Title"
+                        :value="challenge.ID">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -83,13 +69,13 @@
         </el-form>
         <span><b>{{$t('asteroid.clean_status')}}</b></span>
         <el-form :inline="true" label-width="80px">
-            <el-form-item :label="$t('asteroid.team')">
+            <el-form-item :label="$t('asteroid.challenge')">
                 <el-select v-model="clearForm.Id" :placeholder="$t('asteroid.select')">
                     <el-option
-                            v-for="team in teams"
-                            :key="team.ID"
-                            :label="team.Name"
-                            :value="team.ID">
+                        v-for="challenge in challenges"
+                        :key="challenge.ID"
+                        :label="challenge.Title"
+                        :value="challenge.ID">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -124,6 +110,7 @@
         data: () => ({
             baseURL: `ws://${location.host}/api/asteroid`,
             teams: [],
+            challenges: [],
 
             attackForm: {
                 From: null,
@@ -151,6 +138,7 @@
         mounted() {
             this.getTeams()
             this.getTime()
+            this.getChallenges()
             // this.getStatus()
         },
         methods: {
@@ -229,6 +217,14 @@
             getTeams() {
                 this.utils.GET('/manager/teams').then(res => {
                     this.teams = res
+                }).catch(err => {
+                    this.$message.error(err);
+                })
+            },
+
+            getChallenges() {
+                this.utils.GET('/manager/challenges').then(res => {
+                    this.challenges = res
                 }).catch(err => {
                     this.$message.error(err);
                 })
