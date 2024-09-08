@@ -66,8 +66,9 @@
                                          :formatter="(row) => utils.FormatFloat(row.Score)"></el-table-column>
                         <el-table-column v-for="(header, index) in rankHeader" v-bind:key="index" :label="header">
                             <template scope="scope">
-                                 <span :score="utils.FormatFloat(scope.row.GameBoxStatus[index].Score)"
-                                       :class="statusClass(scope.row.GameBoxStatus[index].IsAttacked, scope.row.GameBoxStatus[index].IsDown)">{{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}</span>
+                                <span v-if="scope.row.GameBoxStatus[index].IsAttacked" color="green lighten-2">✔️</span>
+                                 <!-- <span :score="utils.FormatFloat(scope.row.GameBoxStatus[index].Score)"
+                                       :class="statusClass(scope.row.GameBoxStatus[index].IsAttacked, scope.row.GameBoxStatus[index].IsDown)">{{utils.FormatFloat(scope.row.GameBoxStatus[index].Score)}}</span> -->
                             </template>
                         </el-table-column>
                     </el-table>
