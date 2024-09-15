@@ -115,7 +115,7 @@
     "port": "port",
     "score": "分數",
     "description": "題目描述",
-    "down": "無法連線",
+    "down": "Online",
     "attacked": "被攻陷",
     "challenge_placeholder": "請選擇題目",
     "team_placeholder": "請選擇隊伍",

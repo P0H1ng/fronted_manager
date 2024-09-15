@@ -38,7 +38,7 @@
                        :formatter="(row) => utils.FormatFloat(row.Score)"/>
       <el-table-column prop="Description" :label="$t('gamebox.description')"/>
       <el-table-column prop="IsDown" :label="$t('gamebox.down')">
-        <template slot-scope="scope">{{ scope.row.IsDown }}</template>
+        <template slot-scope="scope">{{ !scope.row.IsDown }}</template>
       </el-table-column>
       <el-table-column prop="IsAttacked" :label="$t('gamebox.attacked')">
         <template slot-scope="scope">{{ scope.row.IsAttacked }}</template>
